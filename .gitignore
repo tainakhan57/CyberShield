@@ -1,0 +1,28 @@
+# ── OS files ──────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ── IDE / Editor ──────────────────────────────────────
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# ── PHP / Server ──────────────────────────────────────
+*.log
+error_log
+
+# ── Environment / Secrets ─────────────────────────────
+# If you ever add a .env file, keep it out of git
+.env
+.env.local
+
+# ── Node (if added later) ─────────────────────────────
+node_modules/
+npm-debug.log
+
+# ── Temp files ────────────────────────────────────────
+*.tmp
+*.bak
+*.swp

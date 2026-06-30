@@ -1,0 +1,1395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@400;500;600;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+  <style>
+
+:root {
+  --bg-primary: #060a0f;
+  --bg-secondary: #0c1117;
+  --bg-card: #0f1620;
+  --bg-card-hover: #141e2e;
+  --neon-cyan: #00f5ff;
+  --neon-green: #00ff88;
+  --neon-red: #ff003c;
+  --neon-orange: #ff6b00;
+  --text-primary: #e0f0ff;
+  --text-secondary: #7a9bbf;
+  --text-dim: #3a5570;
+  --border: #1a2d45;
+  --border-bright: #0d4a6b;
+  --glow-cyan: 0 0 20px rgba(0, 245, 255, 0.3);
+  --glow-green: 0 0 20px rgba(0, 255, 136, 0.3);
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Rajdhani', sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: 
+    radial-gradient(ellipse at 20% 20%, rgba(0, 245, 255, 0.04) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 80%, rgba(0, 255, 136, 0.03) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ─── GRID BACKGROUND ─── */
+.grid-bg {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-image:
+    linear-gradient(rgba(0, 245, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 245, 255, 0.03) 1px, transparent 1px);
+  background-size: 50px 50px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ─── NAVBAR ─── */
+.navbar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  height: 64px;
+  background: rgba(6, 10, 15, 0.9);
+  border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(12px);
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.nav-logo .logo-icon {
+  width: 36px; height: 36px;
+  border: 2px solid var(--neon-cyan);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--neon-cyan);
+  font-size: 1rem;
+  box-shadow: var(--glow-cyan);
+  position: relative;
+  overflow: hidden;
+}
+
+.nav-logo .logo-icon::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 245, 255, 0.08);
+}
+
+.nav-logo .logo-text {
+  font-family: 'Orbitron', monospace;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: 1px;
+}
+
+.nav-logo .logo-text span {
+  color: var(--neon-cyan);
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  list-style: none;
+}
+
+.nav-links a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 6px 14px;
+  border-radius: 4px;
+  transition: var(--transition);
+  position: relative;
+}
+
+.nav-links a:hover, .nav-links a.active {
+  color: var(--neon-cyan);
+  background: rgba(0, 245, 255, 0.06);
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* ─── BUTTONS ─── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 24px;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+  transition: left 0.5s;
+}
+
+.btn:hover::before { left: 100%; }
+
+.btn-primary {
+  background: var(--neon-cyan);
+  color: var(--bg-primary);
+  box-shadow: 0 0 20px rgba(0, 245, 255, 0.4);
+}
+
+.btn-primary:hover {
+  background: #00d4e0;
+  box-shadow: 0 0 30px rgba(0, 245, 255, 0.6);
+  transform: translateY(-1px);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--neon-cyan);
+  border: 1px solid var(--neon-cyan);
+}
+
+.btn-outline:hover {
+  background: rgba(0, 245, 255, 0.08);
+  box-shadow: var(--glow-cyan);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+}
+
+.btn-ghost:hover {
+  color: var(--text-primary);
+  border-color: var(--border-bright);
+}
+
+.btn-danger {
+  background: transparent;
+  color: var(--neon-red);
+  border: 1px solid var(--neon-red);
+}
+
+.btn-danger:hover {
+  background: rgba(255, 0, 60, 0.1);
+  box-shadow: 0 0 20px rgba(255, 0, 60, 0.3);
+}
+
+.btn-success {
+  background: var(--neon-green);
+  color: var(--bg-primary);
+  box-shadow: 0 0 20px rgba(0, 255, 136, 0.4);
+}
+
+.btn-success:hover {
+  box-shadow: 0 0 30px rgba(0, 255, 136, 0.6);
+}
+
+.btn-sm { padding: 6px 14px; font-size: 0.75rem; }
+.btn-lg { padding: 14px 36px; font-size: 0.95rem; }
+.btn-full { width: 100%; }
+
+/* ─── CARDS ─── */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1.5rem;
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--neon-cyan), transparent);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.card:hover::before { opacity: 1; }
+.card:hover { border-color: var(--border-bright); background: var(--bg-card-hover); }
+
+/* ─── FORMS ─── */
+.form-group {
+  margin-bottom: 1.25rem;
+}
+
+.form-label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin-bottom: 0.5rem;
+}
+
+.form-input, .form-select, .form-textarea {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--text-primary);
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 500;
+  padding: 10px 14px;
+  transition: var(--transition);
+  outline: none;
+  -webkit-appearance: none;
+}
+
+.form-input:focus, .form-select:focus, .form-textarea:focus {
+  border-color: var(--neon-cyan);
+  box-shadow: 0 0 0 2px rgba(0, 245, 255, 0.1);
+  background: rgba(0, 245, 255, 0.03);
+}
+
+.form-input::placeholder { color: var(--text-dim); }
+
+.form-textarea { resize: vertical; min-height: 100px; }
+
+.form-select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%237a9bbf' fill='none' stroke-width='1.5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 40px;
+  cursor: pointer;
+}
+
+.form-select option { background: var(--bg-card); }
+
+.input-icon-wrap {
+  position: relative;
+}
+
+.input-icon-wrap .form-input {
+  padding-left: 42px;
+}
+
+.input-icon-wrap .icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-dim);
+  font-size: 1rem;
+  pointer-events: none;
+}
+
+/* ─── BADGES ─── */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.badge-critical { background: rgba(255, 0, 60, 0.15); color: #ff4d6d; border: 1px solid rgba(255, 0, 60, 0.3); }
+.badge-high { background: rgba(255, 107, 0, 0.15); color: #ff8c42; border: 1px solid rgba(255, 107, 0, 0.3); }
+.badge-medium { background: rgba(255, 200, 0, 0.15); color: #ffc800; border: 1px solid rgba(255, 200, 0, 0.3); }
+.badge-low { background: rgba(0, 255, 136, 0.1); color: var(--neon-green); border: 1px solid rgba(0, 255, 136, 0.2); }
+.badge-info { background: rgba(0, 245, 255, 0.1); color: var(--neon-cyan); border: 1px solid rgba(0, 245, 255, 0.2); }
+.badge-open { background: rgba(255, 107, 0, 0.15); color: #ff8c42; border: 1px solid rgba(255, 107, 0, 0.3); }
+.badge-resolved { background: rgba(0, 255, 136, 0.1); color: var(--neon-green); border: 1px solid rgba(0, 255, 136, 0.2); }
+.badge-investigating { background: rgba(0, 245, 255, 0.1); color: var(--neon-cyan); border: 1px solid rgba(0, 245, 255, 0.2); }
+.badge-active { background: rgba(0, 255, 136, 0.1); color: var(--neon-green); border: 1px solid rgba(0, 255, 136, 0.2); }
+.badge-inactive { background: rgba(100, 100, 100, 0.2); color: #888; border: 1px solid #333; }
+.badge-admin { background: rgba(0, 245, 255, 0.1); color: var(--neon-cyan); border: 1px solid rgba(0, 245, 255, 0.2); }
+.badge-analyst { background: rgba(255, 200, 0, 0.15); color: #ffc800; border: 1px solid rgba(255, 200, 0, 0.3); }
+.badge-viewer { background: rgba(100, 100, 200, 0.15); color: #9999ff; border: 1px solid rgba(100, 100, 200, 0.3); }
+
+/* ─── TABLE ─── */
+.table-wrap {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+thead th {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 12px 16px;
+  text-align: left;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+
+tbody tr {
+  border-bottom: 1px solid rgba(26, 45, 69, 0.5);
+  transition: var(--transition);
+}
+
+tbody tr:hover {
+  background: rgba(0, 245, 255, 0.03);
+}
+
+tbody td {
+  padding: 14px 16px;
+  color: var(--text-primary);
+  vertical-align: middle;
+}
+
+.td-mono {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+/* ─── SIDEBAR ─── */
+.layout {
+  display: flex;
+  min-height: 100vh;
+  padding-top: 64px;
+}
+
+.sidebar {
+  position: fixed;
+  top: 64px;
+  left: 0;
+  bottom: 0;
+  width: 240px;
+  background: var(--bg-secondary);
+  border-right: 1px solid var(--border);
+  overflow-y: auto;
+  z-index: 100;
+  padding: 1.5rem 0;
+}
+
+.sidebar-section {
+  padding: 0 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.sidebar-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  padding: 0 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  border-radius: 6px;
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 0.88rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  transition: var(--transition);
+  margin-bottom: 2px;
+  position: relative;
+}
+
+.sidebar-link:hover {
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.sidebar-link.active {
+  color: var(--neon-cyan);
+  background: rgba(0, 245, 255, 0.08);
+}
+
+.sidebar-link.active::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 2px;
+  background: var(--neon-cyan);
+  border-radius: 0 2px 2px 0;
+  box-shadow: 0 0 8px var(--neon-cyan);
+}
+
+.sidebar-icon {
+  font-size: 1rem;
+  width: 20px;
+  text-align: center;
+}
+
+.sidebar-badge {
+  margin-left: auto;
+  background: rgba(255, 0, 60, 0.2);
+  color: #ff4d6d;
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 10px;
+}
+
+/* ─── MAIN CONTENT ─── */
+.main-content {
+  margin-left: 240px;
+  flex: 1;
+  padding: 2rem;
+  position: relative;
+  z-index: 1;
+}
+
+.page-header {
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.page-title {
+  font-family: 'Orbitron', monospace;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: 1px;
+}
+
+.page-subtitle {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-top: 4px;
+  font-weight: 500;
+}
+
+/* ─── STATS GRID ─── */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.stat-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1.25rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.stat-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 2px;
+}
+
+.stat-card.cyan::after { background: linear-gradient(90deg, transparent, var(--neon-cyan), transparent); }
+.stat-card.green::after { background: linear-gradient(90deg, transparent, var(--neon-green), transparent); }
+.stat-card.red::after { background: linear-gradient(90deg, transparent, var(--neon-red), transparent); }
+.stat-card.orange::after { background: linear-gradient(90deg, transparent, var(--neon-orange), transparent); }
+
+.stat-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin-bottom: 0.75rem;
+}
+
+.stat-value {
+  font-family: 'Orbitron', monospace;
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.stat-value.cyan { color: var(--neon-cyan); text-shadow: 0 0 20px rgba(0, 245, 255, 0.5); }
+.stat-value.green { color: var(--neon-green); text-shadow: 0 0 20px rgba(0, 255, 136, 0.5); }
+.stat-value.red { color: var(--neon-red); text-shadow: 0 0 20px rgba(255, 0, 60, 0.5); }
+.stat-value.orange { color: var(--neon-orange); text-shadow: 0 0 20px rgba(255, 107, 0, 0.5); }
+
+.stat-trend {
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  margin-top: 6px;
+}
+
+.stat-icon {
+  position: absolute;
+  top: 1rem; right: 1rem;
+  font-size: 1.5rem;
+  opacity: 0.15;
+}
+
+/* ─── MODAL ─── */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.modal {
+  background: var(--bg-card);
+  border: 1px solid var(--border-bright);
+  border-radius: 10px;
+  width: 100%;
+  max-width: 560px;
+  max-height: 90vh;
+  overflow-y: auto;
+  transform: scale(0.95) translateY(10px);
+  transition: transform 0.3s;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), var(--glow-cyan);
+}
+
+.modal-overlay.active .modal {
+  transform: scale(1) translateY(0);
+}
+
+.modal-header {
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.modal-title {
+  font-family: 'Orbitron', monospace;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--neon-cyan);
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 1.25rem;
+  cursor: pointer;
+  padding: 4px;
+  line-height: 1;
+  transition: color 0.2s;
+}
+
+.modal-close:hover { color: var(--text-primary); }
+
+.modal-body { padding: 1.5rem; }
+
+.modal-footer {
+  padding: 1rem 1.5rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+}
+
+/* ─── ALERTS ─── */
+.alert {
+  padding: 12px 16px;
+  border-radius: 6px;
+  font-size: 0.88rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.alert-error { background: rgba(255, 0, 60, 0.1); border: 1px solid rgba(255, 0, 60, 0.3); color: #ff4d6d; }
+.alert-success { background: rgba(0, 255, 136, 0.08); border: 1px solid rgba(0, 255, 136, 0.2); color: var(--neon-green); }
+.alert-info { background: rgba(0, 245, 255, 0.08); border: 1px solid rgba(0, 245, 255, 0.2); color: var(--neon-cyan); }
+.alert-warning { background: rgba(255, 200, 0, 0.08); border: 1px solid rgba(255, 200, 0, 0.2); color: #ffc800; }
+
+/* ─── SEARCH BAR ─── */
+.search-bar {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.search-input-wrap {
+  position: relative;
+  flex: 1;
+  min-width: 200px;
+}
+
+.search-input-wrap input {
+  width: 100%;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--text-primary);
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.9rem;
+  padding: 9px 14px 9px 40px;
+  outline: none;
+  transition: var(--transition);
+}
+
+.search-input-wrap input:focus {
+  border-color: var(--neon-cyan);
+  box-shadow: 0 0 0 2px rgba(0, 245, 255, 0.1);
+}
+
+.search-input-wrap::before {
+  content: '⌕';
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-dim);
+  font-size: 1.1rem;
+  pointer-events: none;
+}
+
+/* ─── DIVIDER ─── */
+.divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border), transparent);
+  margin: 1.5rem 0;
+}
+
+/* ─── UTILITIES ─── */
+.text-cyan { color: var(--neon-cyan); }
+.text-green { color: var(--neon-green); }
+.text-red { color: var(--neon-red); }
+.text-muted { color: var(--text-secondary); }
+.text-dim { color: var(--text-dim); }
+.text-mono { font-family: 'Share Tech Mono', monospace; }
+.font-orbitron { font-family: 'Orbitron', monospace; }
+.mt-1 { margin-top: 0.5rem; }
+.mt-2 { margin-top: 1rem; }
+.mt-3 { margin-top: 1.5rem; }
+.mb-1 { margin-bottom: 0.5rem; }
+.mb-2 { margin-bottom: 1rem; }
+.d-flex { display: flex; }
+.align-center { align-items: center; }
+.gap-1 { gap: 0.5rem; }
+.gap-2 { gap: 1rem; }
+.justify-between { justify-content: space-between; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.hidden { display: none !important; }
+
+/* ─── SCROLLBAR ─── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-primary); }
+::-webkit-scrollbar-thumb { background: var(--border-bright); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--neon-cyan); }
+
+/* ─── SCAN LINE ANIMATION ─── */
+@keyframes scanline {
+  0% { top: -2px; }
+  100% { top: 100%; }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.animate-fadeInUp { animation: fadeInUp 0.5s ease forwards; }
+.animate-fadeIn { animation: fadeIn 0.4s ease forwards; }
+
+.stagger-1 { animation-delay: 0.1s; opacity: 0; }
+.stagger-2 { animation-delay: 0.2s; opacity: 0; }
+.stagger-3 { animation-delay: 0.3s; opacity: 0; }
+.stagger-4 { animation-delay: 0.4s; opacity: 0; }
+.stagger-5 { animation-delay: 0.5s; opacity: 0; }
+.stagger-6 { animation-delay: 0.6s; opacity: 0; }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 768px) {
+  .sidebar { transform: translateX(-100%); }
+  .sidebar.open { transform: translateX(0); }
+  .main-content { margin-left: 0; }
+  .grid-2 { grid-template-columns: 1fr; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Asset Management — CyberShield</title>
+  <style>
+    .risk-bar { height: 6px; background: var(--border); border-radius: 3px; margin-top: 4px; }
+    .risk-fill { height: 100%; border-radius: 3px; transition: width 0.6s; }
+  </style>
+</head>
+<body>
+  <div class="grid-bg"></div>
+
+  <nav class="navbar">
+    <a href="index.html" class="nav-logo">
+      <div class="logo-icon">⛨</div>
+      <div class="logo-text">Cyber<span>Shield</span></div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="threats.html">Threats</a></li>
+      <li><a href="incidents.html">Incidents</a></li>
+      <li><a href="alerts.html">Alerts</a></li>
+      <li><a href="assets.html" class="active">Assets</a></li>
+      <li><a href="users.html">Users</a></li>
+    </ul>
+    <div class="nav-actions">
+      <span style="font-size:0.8rem;color:var(--text-secondary);">Admin · J. Doe</span>
+      <a href="login.html" class="btn btn-ghost btn-sm">Logout</a>
+    </div>
+  </nav>
+
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="sidebar-section">
+        <div class="sidebar-label">Overview</div>
+        <a href="dashboard.html" class="sidebar-link"><span class="sidebar-icon">📊</span> Dashboard</a>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-label">Security</div>
+        <a href="threats.html" class="sidebar-link"><span class="sidebar-icon">🎯</span> Threat Management<span class="sidebar-badge">3</span></a>
+        <a href="incidents.html" class="sidebar-link"><span class="sidebar-icon">🚨</span> Incidents<span class="sidebar-badge">7</span></a>
+      <a href="alerts.html" class="sidebar-link"><span class="sidebar-icon">🔔</span> Alerts</a>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-label">Management</div>
+        <a href="assets.html" class="sidebar-link active"><span class="sidebar-icon">🖥️</span> Assets</a>
+        <a href="users.html" class="sidebar-link"><span class="sidebar-icon">👥</span> Users</a>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <div class="page-header">
+        <div>
+          <div class="page-title">Asset Management</div>
+          <div class="page-subtitle">Inventory and vulnerability status of all registered assets</div>
+        </div>
+        <button class="btn btn-primary" onclick="openModal('add-asset-modal')">+ Register Asset</button>
+      </div>
+
+      <div class="stats-grid" style="grid-template-columns:repeat(4,1fr);">
+        <div class="stat-card cyan"><div class="stat-label">Total Assets</div><div class="stat-value cyan" data-count="38">0</div></div>
+        <div class="stat-card red"><div class="stat-label">Vulnerable</div><div class="stat-value red" data-count="7">0</div></div>
+        <div class="stat-card green"><div class="stat-label">Patched / Safe</div><div class="stat-value green" data-count="27">0</div></div>
+        <div class="stat-card orange"><div class="stat-label">Pending Scan</div><div class="stat-value orange" data-count="4">0</div></div>
+      </div>
+
+      <div class="search-bar">
+        <div class="search-input-wrap" style="max-width:320px;">
+          <input type="text" id="table-search" placeholder="Search assets...">
+        </div>
+        <select class="form-select" style="width:auto;">
+          <option>All Types</option>
+          <option>Server</option>
+          <option>Workstation</option>
+          <option>Network Device</option>
+          <option>Application</option>
+          <option>Database</option>
+        </select>
+        <select class="form-select" style="width:auto;">
+          <option>All Status</option>
+          <option>Active</option>
+          <option>Vulnerable</option>
+          <option>Offline</option>
+        </select>
+      </div>
+
+      <div class="card">
+        <div class="table-wrap">
+          <table id="main-table">
+            <thead>
+              <tr>
+                <th>Asset ID</th><th>Name</th><th>Type</th><th>IP Address</th>
+                <th>OS / Platform</th><th>Risk Score</th><th>Status</th><th>Last Scanned</th><th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="assets-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- ADD/EDIT MODAL -->
+  <div class="modal-overlay" id="add-asset-modal">
+    <div class="modal">
+      <div class="modal-header">
+        <div class="modal-title" id="asset-modal-title">// REGISTER NEW ASSET</div>
+        <button class="modal-close" onclick="closeModal('add-asset-modal')">✕</button>
+      </div>
+      <div class="modal-body">
+        <form id="asset-form">
+          <div class="grid-2">
+            <div class="form-group">
+              <label class="form-label">Asset Name *</label>
+              <input type="text" class="form-input" id="a-name" placeholder="e.g. DB-SERVER-01" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Asset Type *</label>
+              <select class="form-select" id="a-type" required>
+                <option value="">— Select —</option>
+                <option>Server</option>
+                <option>Workstation</option>
+                <option>Network Device</option>
+                <option>Application</option>
+                <option>Database</option>
+                <option>Cloud Resource</option>
+                <option>IoT Device</option>
+              </select>
+            </div>
+          </div>
+          <div class="grid-2">
+            <div class="form-group">
+              <label class="form-label">IP Address</label>
+              <input type="text" class="form-input" id="a-ip" placeholder="192.168.1.100">
+            </div>
+            <div class="form-group">
+              <label class="form-label">MAC Address</label>
+              <input type="text" class="form-input" id="a-mac" placeholder="AA:BB:CC:DD:EE:FF">
+            </div>
+          </div>
+          <div class="grid-2">
+            <div class="form-group">
+              <label class="form-label">OS / Platform</label>
+              <input type="text" class="form-input" id="a-os" placeholder="e.g. Ubuntu 22.04 LTS">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Department / Owner</label>
+              <input type="text" class="form-input" id="a-owner" placeholder="e.g. IT Infrastructure">
+            </div>
+          </div>
+          <div class="grid-2">
+            <div class="form-group">
+              <label class="form-label">Risk Score (0-100)</label>
+              <input type="number" class="form-input" id="a-risk" min="0" max="100" placeholder="e.g. 72">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Status</label>
+              <select class="form-select" id="a-status">
+                <option>Active</option>
+                <option>Vulnerable</option>
+                <option>Patched</option>
+                <option>Offline</option>
+                <option>Decommissioned</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Location / Notes</label>
+            <textarea class="form-textarea" id="a-notes" placeholder="Physical location, additional context, known vulnerabilities..." style="min-height:80px;"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-ghost" onclick="closeModal('add-asset-modal')">Cancel</button>
+        <button class="btn btn-primary" onclick="saveAsset()">💾 Save Asset</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- DELETE MODAL -->
+  <div class="modal-overlay" id="delete-modal">
+    <div class="modal" style="max-width:400px;">
+      <div class="modal-header">
+        <div class="modal-title" style="color:var(--neon-red);">// CONFIRM DELETE</div>
+        <button class="modal-close" onclick="closeModal('delete-modal')">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="alert alert-error">⚠ Permanently remove asset <strong id="delete-item-name"></strong> from inventory? This cannot be undone.</div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-ghost" onclick="closeModal('delete-modal')">Cancel</button>
+        <button class="btn btn-danger" id="confirm-delete-btn">Remove Asset</button>
+      </div>
+    </div>
+  </div>
+  <script src="js/app.js"></script>
+  <script>
+    Auth.require();
+
+    let allAssets = [];
+    let editID    = null;
+
+    // ── HELPERS ─────────────────────────────────────────────
+    function riskColor(r) {
+      if (r >= 80) return 'var(--neon-red)';
+      if (r >= 60) return 'var(--neon-orange)';
+      if (r >= 40) return '#ffc800';
+      return 'var(--neon-green)';
+    }
+    function stClass(s) {
+      return { Active:'active', Vulnerable:'critical', Patched:'resolved', Offline:'inactive', Decommissioned:'inactive' }[s] || 'info';
+    }
+
+    // ── LOAD ASSETS FROM DATABASE ────────────────────────────
+    async function loadAssets() {
+      document.getElementById('assets-tbody').innerHTML =
+        '<tr><td colspan="9" style="text-align:center;padding:2rem;color:var(--text-secondary);font-family:monospace;">Loading from database...</td></tr>';
+      try {
+        const res  = await fetch(`${API_BASE}/assets.php`);
+        const json = await res.json();
+        if (json.success) {
+          allAssets = json.data;
+          updateStats();
+          renderTable(allAssets);
+        } else {
+          showToast('Failed to load assets: ' + json.message, 'error');
+        }
+      } catch (e) {
+        document.getElementById('assets-tbody').innerHTML =
+          '<tr><td colspan="9" style="text-align:center;padding:2rem;color:var(--neon-red);">⚠ Cannot connect. Make sure WAMP is running.</td></tr>';
+      }
+    }
+
+    // ── UPDATE STAT CARDS ────────────────────────────────────
+    function updateStats() {
+      const total      = allAssets.length;
+      const vulnerable = allAssets.filter(a => a.Status === 'Vulnerable').length;
+      const safe       = allAssets.filter(a => ['Active','Patched'].includes(a.Status)).length;
+      const pending    = allAssets.filter(a => !a.LastScanned).length;
+
+      document.querySelectorAll('[data-count]').forEach(el => {
+        const key = el.closest('.stat-card')?.querySelector('.stat-label')?.textContent.trim();
+        const map = { 'Total Assets': total, 'Vulnerable': vulnerable, 'Patched / Safe': safe, 'Pending Scan': pending };
+        if (map[key] !== undefined) animateCounter(el, map[key]);
+      });
+    }
+
+    // ── RENDER TABLE ─────────────────────────────────────────
+    function renderTable(data) {
+      const tbody = document.getElementById('assets-tbody');
+      if (!data.length) {
+        tbody.innerHTML = '<tr><td colspan="9" style="text-align:center;padding:2rem;color:var(--text-secondary);">No assets found.</td></tr>';
+        return;
+      }
+      tbody.innerHTML = '';
+      data.forEach(a => {
+        const risk = parseInt(a.RiskScore) || 0;
+        const tr   = document.createElement('tr');
+        tr.innerHTML = `
+          <td class="td-mono">AST-${String(a.AssetID).padStart(3,'0')}</td>
+          <td style="font-weight:700;">${a.AssetName}</td>
+          <td style="font-size:0.85rem;color:var(--text-secondary);">${a.AssetType}</td>
+          <td class="td-mono">${a.IPAddress || 'N/A'}</td>
+          <td style="font-size:0.82rem;color:var(--text-secondary);">${a.OperatingSystem || '—'}</td>
+          <td>
+            <div style="display:flex;align-items:center;gap:8px;">
+              <span style="font-family:'Orbitron',monospace;font-size:0.85rem;color:${riskColor(risk)};font-weight:700;">${risk}</span>
+              <div style="flex:1;min-width:50px;">
+                <div class="risk-bar"><div class="risk-fill" style="width:${risk}%;background:${riskColor(risk)};"></div></div>
+              </div>
+            </div>
+          </td>
+          <td><span class="badge badge-${stClass(a.Status)}">${a.Status}</span></td>
+          <td class="td-mono">${a.LastScanned || '— Not scanned'}</td>
+          <td>
+            <div style="display:flex;gap:4px;">
+              <button class="btn btn-outline btn-sm" onclick="editAsset(${a.AssetID})">Edit</button>
+              <button class="btn btn-ghost btn-sm"   onclick="scanAsset(${a.AssetID}, '${a.AssetName}')">Scan</button>
+              <button class="btn btn-danger btn-sm"  onclick="deleteAsset(${a.AssetID}, '${a.AssetName.replace(/'/g,"\\'")}')">Del</button>
+            </div>
+          </td>`;
+        tbody.appendChild(tr);
+      });
+    }
+
+    // ── SEARCH ───────────────────────────────────────────────
+    document.getElementById('table-search').addEventListener('input', function() {
+      const q = this.value.toLowerCase();
+      renderTable(allAssets.filter(a =>
+        Object.values(a).some(v => String(v).toLowerCase().includes(q))
+      ));
+    });
+
+    // ── EDIT ─────────────────────────────────────────────────
+    function editAsset(id) {
+      const a = allAssets.find(x => x.AssetID == id);
+      if (!a) return;
+      editID = id;
+      document.getElementById('asset-modal-title').textContent = '// EDIT ASSET';
+      document.getElementById('a-name').value   = a.AssetName;
+      document.getElementById('a-type').value   = a.AssetType;
+      document.getElementById('a-ip').value     = a.IPAddress   || '';
+      document.getElementById('a-mac').value    = a.MACAddress  || '';
+      document.getElementById('a-os').value     = a.OperatingSystem || '';
+      document.getElementById('a-owner').value  = a.Owner_Department || '';
+      document.getElementById('a-risk').value   = a.RiskScore   || 0;
+      document.getElementById('a-status').value = a.Status;
+      document.getElementById('a-notes').value  = a.Notes       || '';
+      openModal('add-asset-modal');
+    }
+
+    // ── SAVE (ADD / UPDATE) ──────────────────────────────────
+    async function saveAsset() {
+      const name = document.getElementById('a-name').value.trim();
+      const type = document.getElementById('a-type').value;
+      if (!name || !type) { showToast('Asset name and type are required.', 'error'); return; }
+
+      const payload = {
+        assetName:        name,
+        assetType:        type,
+        ipAddress:        document.getElementById('a-ip').value    || 'N/A',
+        macAddress:       document.getElementById('a-mac').value   || 'N/A',
+        operatingSystem:  document.getElementById('a-os').value    || 'Unknown',
+        ownerDepartment:  document.getElementById('a-owner').value || 'Unassigned',
+        riskScore:        parseInt(document.getElementById('a-risk').value) || 0,
+        status:           document.getElementById('a-status').value,
+        notes:            document.getElementById('a-notes').value,
+      };
+
+      const btn = document.querySelector('#add-asset-modal .btn-primary');
+      btn.textContent = 'Saving...'; btn.disabled = true;
+
+      try {
+        let method = 'POST';
+        if (editID) { payload.assetID = editID; method = 'PUT'; }
+
+        const res  = await fetch(`${API_BASE}/assets.php`, {
+          method,
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        const json = await res.json();
+
+        if (json.success) {
+          showToast(editID ? 'Asset updated.' : 'Asset registered.', 'success');
+          document.getElementById('asset-form').reset();
+          document.getElementById('asset-modal-title').textContent = '// REGISTER NEW ASSET';
+          editID = null;
+          closeModal('add-asset-modal');
+          await loadAssets();
+        } else {
+          showToast('Error: ' + json.message, 'error');
+        }
+      } catch (e) {
+        showToast('Server error. Check WAMP is running.', 'error');
+      } finally {
+        btn.textContent = '💾 Save Asset'; btn.disabled = false;
+      }
+    }
+
+    // ── SCAN ─────────────────────────────────────────────────
+    async function scanAsset(id, name) {
+      showToast(`Scan initiated for ${name}...`, 'info');
+      try {
+        const res  = await fetch(`${API_BASE}/assets.php`, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ assetID: id })
+        });
+        const json = await res.json();
+        if (json.success) {
+          showToast(`Scan complete for ${name}.`, 'success');
+          await loadAssets();
+        }
+      } catch (e) { showToast('Scan failed.', 'error'); }
+    }
+
+    // ── DELETE ───────────────────────────────────────────────
+    function deleteAsset(id, name) {
+      document.getElementById('delete-item-name').textContent = `"${name}"`;
+      openModal('delete-modal');
+      document.getElementById('confirm-delete-btn').onclick = async () => {
+        try {
+          const res  = await fetch(`${API_BASE}/assets.php?id=${id}`, { method: 'DELETE' });
+          const json = await res.json();
+          if (json.success) {
+            showToast('Asset removed.', 'success');
+            closeModal('delete-modal');
+            await loadAssets();
+          } else showToast('Delete failed.', 'error');
+        } catch (e) { showToast('Server error.', 'error'); }
+      };
+    }
+
+    // ── INIT ─────────────────────────────────────────────────
+    document.addEventListener('DOMContentLoaded', loadAssets);
+  </script>
+
+<script>
+// ─── MODAL MANAGEMENT ───
+function openModal(id) {
+  const m = document.getElementById(id);
+  if (m) m.classList.add('active');
+}
+
+function closeModal(id) {
+  const m = document.getElementById(id);
+  if (m) m.classList.remove('active');
+}
+
+// Close modal on overlay click
+document.addEventListener('click', function(e) {
+  if (e.target.classList.contains('modal-overlay')) {
+    e.target.classList.remove('active');
+  }
+});
+
+// ESC to close
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    document.querySelectorAll('.modal-overlay.active').forEach(m => m.classList.remove('active'));
+  }
+});
+
+// ─── TOAST NOTIFICATIONS ───
+function showToast(message, type = 'info') {
+  let container = document.getElementById('toast-container');
+  if (!container) {
+    container = document.createElement('div');
+    container.id = 'toast-container';
+    container.style.cssText = 'position:fixed;bottom:24px;right:24px;z-index:9999;display:flex;flex-direction:column;gap:8px;';
+    document.body.appendChild(container);
+  }
+
+  const colors = {
+    success: '#00ff88',
+    error: '#ff003c',
+    info: '#00f5ff',
+    warning: '#ffc800'
+  };
+
+  const toast = document.createElement('div');
+  toast.style.cssText = `
+    background: var(--bg-card);
+    border: 1px solid ${colors[type]}44;
+    color: ${colors[type]};
+    padding: 12px 20px;
+    border-radius: 6px;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4), 0 0 20px ${colors[type]}22;
+    animation: fadeInUp 0.3s ease forwards;
+    display: flex; align-items: center; gap: 10px;
+    max-width: 320px;
+  `;
+
+  const icons = { success: '✓', error: '✕', info: 'ℹ', warning: '⚠' };
+  toast.innerHTML = `<span>${icons[type]}</span><span>${message}</span>`;
+  container.appendChild(toast);
+
+  setTimeout(() => {
+    toast.style.opacity = '0';
+    toast.style.transition = 'opacity 0.3s';
+    setTimeout(() => toast.remove(), 300);
+  }, 3500);
+}
+
+// ─── DELETE CONFIRM ───
+function confirmDelete(name, callback) {
+  const overlay = document.getElementById('delete-modal');
+  if (!overlay) return;
+  document.getElementById('delete-item-name').textContent = name;
+  overlay.classList.add('active');
+  document.getElementById('confirm-delete-btn').onclick = function() {
+    callback();
+    overlay.classList.remove('active');
+    showToast('Record deleted successfully.', 'success');
+  };
+}
+
+// ─── FORM VALIDATION ───
+function validateForm(formEl) {
+  let valid = true;
+  formEl.querySelectorAll('[required]').forEach(field => {
+    field.classList.remove('error');
+    if (!field.value.trim()) {
+      field.classList.add('error');
+      field.style.borderColor = 'var(--neon-red)';
+      valid = false;
+    } else {
+      field.style.borderColor = '';
+    }
+  });
+  return valid;
+}
+
+// ─── TABLE SEARCH ───
+function initTableSearch(inputId, tableId) {
+  const input = document.getElementById(inputId);
+  const table = document.getElementById(tableId);
+  if (!input || !table) return;
+  input.addEventListener('input', function() {
+    const q = this.value.toLowerCase();
+    table.querySelectorAll('tbody tr').forEach(row => {
+      row.style.display = row.textContent.toLowerCase().includes(q) ? '' : 'none';
+    });
+  });
+}
+
+// ─── PASSWORD STRENGTH ───
+function initPasswordStrength(inputId, barId) {
+  const input = document.getElementById(inputId);
+  const bar = document.getElementById(barId);
+  if (!input || !bar) return;
+  input.addEventListener('input', function() {
+    const val = this.value;
+    let strength = 0;
+    if (val.length >= 8) strength++;
+    if (/[A-Z]/.test(val)) strength++;
+    if (/[0-9]/.test(val)) strength++;
+    if (/[^A-Za-z0-9]/.test(val)) strength++;
+
+    const colors = ['', '#ff003c', '#ff6b00', '#ffc800', '#00ff88'];
+    const labels = ['', 'WEAK', 'FAIR', 'GOOD', 'STRONG'];
+    bar.style.width = (strength * 25) + '%';
+    bar.style.background = colors[strength];
+    const label = bar.parentElement.nextElementSibling;
+    if (label && label.classList.contains('strength-label')) {
+      label.textContent = val.length ? 'Password Strength: ' + labels[strength] : '';
+      label.style.color = colors[strength];
+    }
+  });
+}
+
+// ─── SIDEBAR TOGGLE ───
+function toggleSidebar() {
+  document.querySelector('.sidebar')?.classList.toggle('open');
+}
+
+// ─── ANIMATE ON LOAD ───
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('.animate-fadeInUp').forEach(el => {
+    el.style.opacity = '1';
+  });
+
+  // Auto-init
+  initTableSearch('table-search', 'main-table');
+  initPasswordStrength('password', 'strength-bar');
+  initPasswordStrength('new-password', 'strength-bar');
+});
+
+// ─── TERMINAL TYPING EFFECT ───
+function typeWriter(el, text, speed = 40) {
+  let i = 0;
+  el.textContent = '';
+  const timer = setInterval(() => {
+    el.textContent += text[i];
+    i++;
+    if (i >= text.length) clearInterval(timer);
+  }, speed);
+}
+
+// ─── COUNTER ANIMATION ───
+function animateCounter(el, target, duration = 1500) {
+  const start = 0;
+  const step = target / (duration / 16);
+  let current = start;
+  const timer = setInterval(() => {
+    current += step;
+    if (current >= target) { current = target; clearInterval(timer); }
+    el.textContent = Math.floor(current).toLocaleString();
+  }, 16);
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('[data-count]').forEach(el => {
+    const target = parseInt(el.dataset.count);
+    setTimeout(() => animateCounter(el, target), 300);
+  });
+});
+
+</script>
+</body>
+</html>
