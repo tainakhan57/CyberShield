@@ -74,7 +74,7 @@ threats ────────└──── alerts     (RelatedThreat → th
 ### Step 2 — Clone the Repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/CyberShield.git
+git clone https://github.com/tainakhan57/CyberShield
 ```
 
 Move the `CyberShield` folder into your WAMP www directory:
